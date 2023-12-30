@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body{
+  background-color: #35559b;
+  color: aliceblue;
+}
+
+.palo{
+  height: 105%;
+  margin-top: -20%;
+  z-index: 10;
+}
+
+.tarjeta{
+  box-shadow: 4px 4px 2px 3px rgb(51, 51, 51);
+
+}
+
+.tarjeta:hover > .botones {
+  visibility: visible;
+}
+
+.nuevoEvento{
+  transition: box-shadow 0.5s all;
+  animation: cambiarSombra 2s infinite;
+}
+
+@keyframes cambiarSombra {
+  0% {
+    box-shadow: 0 0 8px 3px rgb(255, 255, 255);
+  }
+  50% {
+    box-shadow: 0 0 8px -8px rgb(255, 255, 255);
+  }
+  100% {
+    box-shadow: 0 0 8px 3px rgb(255, 255, 255);
+  }
+}
+
+.fondoBlur{
+  filter: blur(10px)
+}
+
+.paneleando{
+  top: 3rem;
+}
+
+
+.panel{
+  transform: translate(-50%, 0);
+  transition: 1s;
+  
+}
+
