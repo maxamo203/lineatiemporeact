@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const instance = axios.create({
     baseURL: 'https://lineatiempoback.onrender.com/api',
+    //baseURL: 'http://localhost:10001/api',
     withCredentials: true //supongo que para que guarde las cookies
 })
 

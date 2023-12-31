@@ -35,6 +35,7 @@ export function BotonesEdit(){
 
     const agregarEvento = async () =>{
         
+        data.setLoading(true)
         const nuevaData = {titulo: `Nuevo evento ${estadoEvento.indice+1}`, fecha: `${new Date().toLocaleDateString('es-ES')}`}
         let newData = [...data.data]
         newData.splice(estadoEvento.indice+1,0, nuevaData)
@@ -49,6 +50,7 @@ export function BotonesEdit(){
             //console.log(err);
             err.response.status == 403 && pedirValidacion()
         }
+        data.setLoading(false)
     }
 
     const pedirConfirmacion = ()=>{
@@ -67,7 +69,7 @@ export function BotonesConfirmar({parametros, tituloInicial}){
     const { estadoEvento, data, pedirValidacion,cancelarCambios } = useContexts();
     const confirmarCambios = async () => {
         //console.log(parametros, tituloInicial);
-
+        data.setLoading(true)
         const nuevaData = {titulo: parametros.titulo, fecha: parametros.fecha}
         let newData = [...data.data]
         newData[estadoEvento.indice] = nuevaData
@@ -84,6 +86,7 @@ export function BotonesConfirmar({parametros, tituloInicial}){
             return //para que no salga del modo edicion
         }
         estadoEvento.setEditando(false)
+        data.setLoading(false)
     }
 
     return (
@@ -97,6 +100,7 @@ export function BotonesConfirmar({parametros, tituloInicial}){
 export function BotonAddAlFinal(){
     const {  data, pedirValidacion } = useContexts();
     const agregarAlFinal = async () =>{
+        data.setLoading(true)
         const nuevaData = {titulo: `Nuevo evento ${data.data.length}`, fecha: `${new Date().toLocaleDateString('es-ES')}`}
         let newData = [...data.data]
         newData.splice(data.data.length,0, nuevaData)
@@ -110,6 +114,7 @@ export function BotonAddAlFinal(){
             //console.log(err);
             err.response.status == 403 && pedirValidacion()
         }
+        data.setLoading(false)
     }
 
     return(
@@ -122,6 +127,7 @@ export function PanelConfirmacion({setIndice, indice}){
     const {data, pedirValidacion } = useContexts();
     const {handleSubmit} = useForm()
     const borrarEvento = handleSubmit(async () =>{
+        data.setLoading(true)
         let newData = [...data.data]
         newData.splice(indice,1)
         try{
@@ -133,7 +139,7 @@ export function PanelConfirmacion({setIndice, indice}){
             //console.log(err);
             err.response.status == 403 && pedirValidacion()
         }
-        
+        data.setLoading(false)
     })
 
     const cancelar = ()=>{

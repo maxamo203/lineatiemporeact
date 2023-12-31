@@ -22,10 +22,10 @@ export function LoginForm({isLogging, setLogging}){
     }
     return(
         
-        <PanelFlotante className={`${isLogging?' paneleando':''} `} onSubmit={sendLogin}>
+        <PanelFlotante className={`${isLogging?' paneleando':''} z-40 bg-yellow-500`} onSubmit={sendLogin}>
             {errors.password && (<MensajeError message={'Contraseña requerida'}/>)}
             {errores && (<MensajeError message={errores}/>)}
-            <input type="password" placeholder="Contraseña" {...register('password',{required:true})}className="bg-yellow-600 rounded-md p-1 placeholder:text-zinc-600" onChange={(e) => setPass(e.target.value)}/>
+            <input type="password" placeholder="Contraseña" {...register('password',{required:true})} className="bg-yellow-600 rounded-md p-1 placeholder:text-zinc-600" onChange={(e) => setPass(e.target.value)}/>
             <button type="submit" className="bg-green-300 w-max text-black text-xl rounded-md my-2 p-1">Login</button>
             <button type="button" onClick={cancelar} className="bg-red-300 w-max text-black rounded-md p-1">Cancelar</button>
         </PanelFlotante>

@@ -5,6 +5,7 @@ import { eventosRequest } from './api/axios'
 import { BotonAddAlFinal, PanelConfirmacion } from './components/BotonesCRUD'
 import {FaAngleDoubleDown} from 'react-icons/fa'
 import { LoginForm } from './components/LoginForm'
+import { Loading } from './components/Loading'
 
 
 
@@ -15,6 +16,7 @@ function App() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [logging, setLogging] = useState(false);
+  const [primeraCarga, setPrimeraCarga] = useState(true)
   const [indiceABorrar, setIndiceABorrar] = useState(null)
 
   useEffect(()=>{
@@ -25,6 +27,7 @@ function App() {
       }catch(err){
         console.log(err);
       }finally{
+        setPrimeraCarga(false)
         setLoading(false)
       }
       
@@ -43,11 +46,12 @@ function App() {
     });
   }
 
-  if (loading) {
-    return <p className='text-red-700'>Cargando...</p>;
+  if (loading && primeraCarga) {
+    return <Loading/>;
   }
   return (
     <>
+      {loading && <Loading/>}
       <LoginForm isLogging={logging} setLogging = {setLogging}/>
       <PanelConfirmacion indice={indiceABorrar} setIndice={setIndiceABorrar}/>
       <span className={`${logging || indiceABorrar != null?'fondoBlur': ''}`}>
@@ -59,7 +63,7 @@ function App() {
         </div>
       </span> 
         
-        <DataContext.Provider value={{data,setData, setLogging,indiceABorrar, setIndiceABorrar}}>
+        <DataContext.Provider value={{data,setData, setLogging,indiceABorrar, setIndiceABorrar, setLoading}}>
         <span className={`${logging || indiceABorrar != null?'fondoBlur': ''}`}>
         {data.map((evento, indice) => {
             return <Evento titulo={evento.titulo} fecha={evento.fecha} izquierda={indice%2===0?true:false} key= {indice} indice={indice}/>
@@ -68,7 +72,6 @@ function App() {
         </span> 
         <PanelConfirmacion indice={indiceABorrar} setIndice={setIndiceABorrar}/>
         </DataContext.Provider>
-      
 
     </>
     
